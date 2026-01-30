@@ -11,7 +11,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres/01-init-db.sh:/docker-entrypoint-initdb.d/01-init-db.sh
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/02-init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U webhook"]
       interval: 5s
@@ -19,9 +20,7 @@ services:
       retries: 5
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: woodhq/webhook-listener-backend:latest
     ports:
       - "8080:8080"
     environment:
@@ -34,14 +33,9 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    volumes:
-      - ./backend:/app
-    command: go run main.go
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: woodhq/webhook-listener-frontend:latest
     ports:
       - "3000:3000"
     environment:
@@ -49,9 +43,6 @@ services:
       HOST: 0.0.0.0
     depends_on:
       - backend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
 
 volumes:
   postgres_data:

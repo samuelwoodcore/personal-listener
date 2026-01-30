@@ -1,6 +1,8 @@
 -- Docker PostgreSQL initialization script
 -- This file is automatically executed when the PostgreSQL container starts for the first time
 -- Place in /docker-entrypoint-initdb.d/ directory
+-- Note: POSTGRES_DB environment variable (webhookdb) automatically creates the database
+-- This script runs in the context of that database
 
 -- Create webhooks table
 CREATE TABLE IF NOT EXISTS webhooks (

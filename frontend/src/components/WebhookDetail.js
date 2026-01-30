@@ -13,22 +13,20 @@ function WebhookDetail({ webhook, onBack, onUpdate }) {
   const [loadingMore, setLoadingMore] = useState(false);
   const observerRef = useRef(null);
   const eventsContainerRef = useRef(null);
+  const pageRef = useRef(1);
 
-  useEffect(() => {
-    loadEvents(true);
-  }, [webhook.id]);
-
-  const loadEvents = async (reset = false) => {
+  const loadEvents = useCallback(async (reset = false) => {
     try {
       if (reset) {
         setLoading(true);
         setPage(1);
+        pageRef.current = 1;
         setEvents([]);
       } else {
         setLoadingMore(true);
       }
 
-      const currentPage = reset ? 1 : page;
+      const currentPage = reset ? 1 : pageRef.current;
       const data = await getWebhookEvents(webhook.id, currentPage, 20);
 
       if (reset) {
@@ -39,6 +37,7 @@ function WebhookDetail({ webhook, onBack, onUpdate }) {
 
       setHasMore(data.hasMore || false);
       if (!reset) {
+        pageRef.current = currentPage + 1;
         setPage(prev => prev + 1);
       }
     } catch (error) {
@@ -48,13 +47,17 @@ function WebhookDetail({ webhook, onBack, onUpdate }) {
       setLoading(false);
       setLoadingMore(false);
     }
-  };
+  }, [webhook.id]);
+
+  useEffect(() => {
+    loadEvents(true);
+  }, [webhook.id, loadEvents]);
 
   const loadMore = useCallback(() => {
     if (!loadingMore && hasMore) {
       loadEvents(false);
     }
-  }, [loadingMore, hasMore, page]);
+  }, [loadingMore, hasMore, loadEvents]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -66,13 +69,14 @@ function WebhookDetail({ webhook, onBack, onUpdate }) {
       { threshold: 0.1 }
     );
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+    const currentObserverRef = observerRef.current;
+    if (currentObserverRef) {
+      observer.observe(currentObserverRef);
     }
 
     return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
+      if (currentObserverRef) {
+        observer.unobserve(currentObserverRef);
       }
     };
   }, [hasMore, loadingMore, loadMore]);
