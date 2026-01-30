@@ -68,7 +68,10 @@ func initDB() {
 	}
 
 	if err = db.Ping(); err != nil {
-		log.Fatal("Failed to ping database:", err)
+		log.Printf("FATAL: Database connection failed: %v", err)
+		log.Printf("Connection string: host=%s port=%s user=%s dbname=%s",
+			dbHost, dbPort, dbUser, dbName)
+		panic(fmt.Sprintf("Failed to connect to database: %v", err))
 	}
 
 	// Create tables
@@ -487,6 +490,7 @@ func main() {
 	// Load .env file if it exists
 	godotenv.Load()
 
+	// Initialize database connection (will panic if connection fails)
 	initDB()
 	defer db.Close()
 
