@@ -1,0 +1,155 @@
+.webhook-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+@media (min-width: 1400px) {
+  .webhook-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .webhook-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.webhook-list-empty {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.webhook-card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+
+.webhook-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  border-color: #667eea;
+}
+
+.webhook-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.webhook-card-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-200 {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-500 {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-404 {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.webhook-card-body {
+  margin-bottom: 20px;
+}
+
+.webhook-url-section {
+  margin-bottom: 20px;
+}
+
+.webhook-url-section label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #374151;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.url-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f9fafb;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+}
+
+.webhook-url {
+  flex: 1;
+  font-size: 13px;
+  color: #1f2937;
+  word-break: break-all;
+  font-family: 'Courier New', monospace;
+}
+
+.btn-copy {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-copy:hover {
+  background: #5568d3;
+  transform: scale(1.05);
+}
+
+.webhook-info {
+  display: grid;
+  gap: 12px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.webhook-info strong {
+  color: #374151;
+  font-weight: 600;
+}
+
+.webhook-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 2px solid #f3f4f6;
+}

@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'ArcadiaDisplay';
+  src: url('https://res.cloudinary.com/dvc4kia8l/raw/upload/v1764089046/ArcadiaDisplay-Variable_uzx6io.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'ArcadiaDisplay', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  min-height: 100vh;
+  color: #333;
+}
+
+code {
+  font-family: 'Courier New', monospace;
+}
